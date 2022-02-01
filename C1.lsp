@@ -112,3 +112,26 @@
 )
 (setq pa (assoc "Phone" dt))
 (setq pa1 (cdr pa))
+;
+;标注
+;
+(defun C:BB () 
+  (setq r1 5
+        h1 3.5
+  )
+  (graphscr)
+  (setq OCE (getvar "cmdecho"))
+  (setvar "cmdecho" 0)
+  (setq p1 (getpoint "\nFrom point:")
+        p2 (getpoint "\nBubber center point:")
+        a1 (angle p2 p1)
+        p3 (polar p2 a1 r1)
+        t1 (getstring "\nPart number:")
+  )
+  (command ".LINE" p1 p3 "")
+  (command ".CIRCLE" p2 r1)
+  (command ".TEXT" "M" p2 h1 0 t1)
+
+  (setvar "cmdecho" oce)
+  (princ)
+)
