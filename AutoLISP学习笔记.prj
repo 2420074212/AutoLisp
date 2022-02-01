@@ -1,9 +1,9 @@
-;;; VLisp project file [V2.0] AutoLISP学习笔记 saved to:[c:\Users\yoophoon\Desktop\AutoLISP] at:[2022/1/31]
+;;; VLisp project file [V2.0] AutoLISP学习笔记 saved to:[c:\Users\yoophoon\Desktop\AutoLISP] at:[2022/2/1]
 (VLISP-PROJECT-LIST 
   :NAME
   AutoLISP学习笔记
   :OWN-LIST
-  ("C1")
+  ("C1" "画矩形")
   :FAS-DIRECTORY
   nil
   :TMP-DIRECTORY
