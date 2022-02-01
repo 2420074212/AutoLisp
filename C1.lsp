@@ -24,11 +24,17 @@
   (setvar "cmdecho" OCE)
   (princ)
 )
-
+;
+;实数
+;
+(rtos number [mode [precision]]);将实数按指定格式转换成字符串来看
+(setq number 123456789.123456789)
+(rtos number 2 30)
+(equal expr1 expr2 [fuzz]);比较时按fuzz作为容差进行比较
+(equal 3.14159216 3.14159215 1.0e-7);返回相等
 ;
 ;字符串操作
 ;
-
 (strcase string [which]);字符串大小写，which->T  则转换为小写
 (strcat str1 str2 ...);字符串连接
 (strlen str);字符串长度
