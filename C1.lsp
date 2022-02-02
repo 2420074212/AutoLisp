@@ -27,7 +27,7 @@
 ;
 ;实数
 ;
-(rtos number [mode [precision]]);将实数按指定格式转换成字符串来看
+(rtos number [mode [precision]]);将实数按指定格式转换成字符串来看 real to string，类似的命令还有angtos(angle to string)
 (setq number 123456789.123456789)
 (rtos number 2 30)
 (equal expr1 expr2 [fuzz]);比较时按fuzz作为容差进行比较
@@ -112,6 +112,9 @@
 )
 (setq pa (assoc "Phone" dt))
 (setq pa1 (cdr pa))
+DRAWING_SCALE;;;!YQ_DWGSCALE      源泉绘图比例
+INSUNITS;;; 插入时的缩放单位，      源泉绘图单位
+
 ;
 ;标注
 ;
@@ -133,5 +136,24 @@
   (command ".TEXT" "M" p2 h1 0 t1)
 
   (setvar "cmdecho" oce)
+  (princ)
+)
+(defun C:XIEBIAO (/ OCE) 
+  (graphscr)
+  (setq OLD_CMDECHO (getvar "cmdecho"))
+  ; (setq OLD_OSMODE (getvar "OSMODE"))
+  (setvar "cmdecho" 0)
+  ;(setvar "OSMODE" 0)
+  (setq CCENTER (getpoint "\n输入圆心位置："))
+  (setq LSTART (getpoint "\n输入直线起点位置："))
+  (setq CRADIUS (getreal "\n输入圆半径："))
+  (setq DTEXT (getstring "\n输入标注文字："))
+  (setq LEND (polar CCENTER (angle CCENTER LSTART) CRADIUS))
+  (command ".CIRCLE" CCENTER CRADIUS)
+  (command ".LINE" LSTART LEND "")
+  (command ".TEXT" "M" CCENTER 3.5 0 DTEXT)
+
+  ; (setvar "OSM0DE" OLD_OSMODE)
+  (setvar "cmdecho" OLD_CMDECHO)
   (princ)
 )
