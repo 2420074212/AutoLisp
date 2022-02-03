@@ -112,8 +112,8 @@
 )
 (setq pa (assoc "Phone" dt))
 (setq pa1 (cdr pa))
-DRAWING_SCALE;;;!YQ_DWGSCALE      源泉绘图比例
-INSUNITS;;; 插入时的缩放单位，      源泉绘图单位
+DRAWING_SCALE;;;YQ_DWGSCALE     源泉绘图比例
+INSUNITS;;;插入时的缩放单位       源泉绘图单位
 
 ;
 ;标注
@@ -123,8 +123,8 @@ INSUNITS;;; 插入时的缩放单位，      源泉绘图单位
         h1 3.5
   )
   (graphscr)
-  (setq OCE (getvar "cmdecho"))
-  (setvar "cmdecho" 0)
+  ;(setq OCE (getvar "cmdecho"))
+  ;(setvar "cmdecho" 0)
   (setq p1 (getpoint "\nFrom point:")
         p2 (getpoint "\nBubber center point:")
         a1 (angle p2 p1)
@@ -135,15 +135,15 @@ INSUNITS;;; 插入时的缩放单位，      源泉绘图单位
   (command ".CIRCLE" p2 r1)
   (command ".TEXT" "M" p2 h1 0 t1)
 
-  (setvar "cmdecho" oce)
+  ;(setvar "cmdecho" oce)
   (princ)
 )
 (defun C:XIEBIAO (/ OCE) 
   (graphscr)
   (setq OLD_CMDECHO (getvar "cmdecho"))
-  ; (setq OLD_OSMODE (getvar "OSMODE"))
+  (setq OLD_OSMODE (getvar "OSMODE"))
   (setvar "cmdecho" 0)
-  ;(setvar "OSMODE" 0)
+  (setvar "OSMODE" 0)
   (setq CCENTER (getpoint "\n输入圆心位置："))
   (setq LSTART (getpoint "\n输入直线起点位置："))
   (setq CRADIUS (getreal "\n输入圆半径："))
@@ -153,7 +153,7 @@ INSUNITS;;; 插入时的缩放单位，      源泉绘图单位
   (command ".LINE" LSTART LEND "")
   (command ".TEXT" "M" CCENTER 3.5 0 DTEXT)
 
-  ; (setvar "OSM0DE" OLD_OSMODE)
+  (setvar "OSMODE" OLD_OSMODE)
   (setvar "cmdecho" OLD_CMDECHO)
   (princ)
 )
