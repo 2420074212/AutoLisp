@@ -157,3 +157,20 @@ INSUNITS;;;插入时的缩放单位       源泉绘图单位
   (setvar "cmdecho" OLD_CMDECHO)
   (princ)
 )
+
+;
+;更新对象数据序列
+;
+(entlast);获取最后一个未删除的主图元名
+(entsel);选取图元，获取图元名及图元坐标
+(nentsel);选取图元
+(ssname (ssget) 0);选择图元（selection set 选择集）
+
+(entget);获取图元序列
+(subst);置换序列变量内的数据项
+(entmod);更新图元（entity modify）
+(entupd);如果图元序列中还含有子序列 则用该函数进一步更新
+
+;
+;选择集（selection set）
+;
