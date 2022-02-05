@@ -174,3 +174,64 @@ INSUNITS;;;插入时的缩放单位       源泉绘图单位
 ;
 ;选择集（selection set）
 ;
+(ssget [sel-method] [pt1] [pt2] [pt-list] [filter-list])
+;选取通过指定点的对象
+(setq p2 (getpoint "\nPick a point:"));选取一个点
+(setq s2 (ssget p2));将该点作为选择集
+(sslength s2);获取选择集对象数目
+
+(setq p3 (list 450 250));直接指定选取点
+(setq s3 (ssget p3));返回nil表示无图形通过该点，选择集未产生
+(setq s4 (ssget (list 411 395)));等效上面语句
+
+;指定选取区域
+(setq p5 (getpoint "\nPick a point:"))
+(setq p6 (getcorner p5 "\nPick opposite corner:"))
+(setq s5 (ssget "w" p5 p6))
+(setq s6 (ssget "cp" (list p2 p3 p4 p5 p6)))
+
+;使用上一次编辑使用的选择集
+(setq s7 (ssget "p"))
+
+;选取最后建立的可见对象
+(setq s8 (ssget "l"))
+
+;选取图文件内的所有对象
+(setq s9 (ssget "x"))
+
+;过滤对象
+(setq s10 (ssget "X" '((0 . "LINE") (8 . "0"))))
+(setq s11 (ssget '(0 . "TEXT")))
+
+(setq s12 (ssget "c" p5 p6 '((0 . "TEXT"))));指定选取区域及选取方式
+
+;关系过滤，选择集
+(setq s13 (ssget "X" '((0 . "CIRCLE") (-4 . ">") (40 . 10.0))));关系运算符的群码-4、半径的群码40
+(setq s14 (ssget "X" 
+                 '((0 . "CIRCLE")
+                   (-4 . ">")
+                   (40 . 10.0)
+                   (-4 . "<")
+                   (40 . 20.0)
+                  )
+          )
+);每个关系运算符只影响它后方一个元素
+
+;坐标关系
+(setq s15 (ssget "X" 
+                 '((0 . "LINE")
+                   (-4 . ">,>,*")
+                   (10 500.0 300.0 0.0)
+                  )
+          )
+);找出所有起点X坐标大于500、Y坐标大于300、Z坐标不考虑的直线段
+(setq s15 (ssget "X" 
+                 '((0 . "LINE")
+                   (-4 . ">,>")
+                   (10 500.0 300.0 0.0)
+                  )
+          )
+);与上例功能相同
+;群码210（法向量）只能使用“*”、“=”、“!=”、“/=”、“<>”运算符进行比较
+
+
